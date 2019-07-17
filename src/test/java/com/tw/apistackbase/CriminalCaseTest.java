@@ -79,5 +79,35 @@ public class CriminalCaseTest {
         Assertions.assertEquals("yyCase",crinialList.get(0).getCaseName());
     }
 
+    @Test
+    public void should_return_all_same_name_case_when_find_crinimal_case_by_name() {
+        //given
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase1);
+        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase2);
+        CriminalCase criminalCase3 = new CriminalCase(3,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase3);
+        //when//
+        List<CriminalCase> crinialList = criminalCaseRepository.findAllByCaseName("xxCase");
+        // /then
+        Assertions.assertEquals(crinialList.get(1).getCaseName(),crinialList.get(0).getCaseName());
+    }
 
+    @Test
+    public void should_delete_case_when_delete_crinimal_case_by_id() {
+        //given
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase1);
+        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase2);
+        CriminalCase criminalCase3 = new CriminalCase(3,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase3);
+        //when//
+        criminalCaseRepository.deleteById(1);
+        List<CriminalCase> caseList = criminalCaseRepository.findAll();
+
+        // /then
+        Assertions.assertEquals(2,caseList.size());
+    }
 }
