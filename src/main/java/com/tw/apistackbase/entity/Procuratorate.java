@@ -3,6 +3,7 @@ package com.tw.apistackbase.entity;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name ="procuratorate")
@@ -12,13 +13,22 @@ public class Procuratorate {
     private int procuratorateId;
     @Column(nullable = false,length = 50,unique = true)
     private String procuratorateName;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Prosecutor>prosecutors;
     public Procuratorate() {
     }
 
     public Procuratorate(int procuratorateId, String procuratorateName) {
         this.procuratorateId = procuratorateId;
         this.procuratorateName = procuratorateName;
+    }
+
+    public List<Prosecutor> getProsecutors() {
+        return prosecutors;
+    }
+
+    public void setProsecutors(List<Prosecutor> prosecutors) {
+        this.prosecutors = prosecutors;
     }
 
     public Procuratorate(String procuratorateName) {

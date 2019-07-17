@@ -2,6 +2,7 @@ package com.tw.apistackbase;
 
 import com.tw.apistackbase.entity.CriminalCase;
 import com.tw.apistackbase.entity.Procuratorate;
+import com.tw.apistackbase.entity.Prosecutor;
 import com.tw.apistackbase.repository.ProcuratorateRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -73,5 +74,33 @@ public class ProcuratorateTest {
         Assertions.assertEquals("xx检察院",pro.getProcuratorateName());
 
     }
+    @Test
+    public void should_return_procuratorate_find__by_id() {
+        //given
+        Procuratorate procuratorate = new Procuratorate(1,"xx检察院");
+        //when//
+        procuratorateRepository.saveAndFlush(procuratorate);
+        Procuratorate pro = procuratorateRepository.findById(1).get();
+        // /then
+        Assertions.assertEquals("xx检察院",pro.getProcuratorateName());
 
+    }
+
+    @Test
+    public void should_return_prosecutor_when__find_procuratorate() {
+        //given
+        Procuratorate procuratorate = new Procuratorate(1,"xx检察院");
+        Prosecutor prosecutor1 = new Prosecutor("owen");
+        Prosecutor prosecutor2 = new Prosecutor("owenli");
+        List<Prosecutor> prosecutorList = new LinkedList<>();
+        prosecutorList.add(prosecutor1);
+        prosecutorList.add(prosecutor2);
+        procuratorate.setProsecutors(prosecutorList);
+        procuratorateRepository.saveAndFlush(procuratorate);
+        //when//
+        List<Procuratorate> procuratorateList = procuratorateRepository.findAll();
+        // /then
+        Assertions.assertEquals("owen",procuratorateList.get(0).getProsecutors().get(0).getProsecutorName());
+
+    }
 }
