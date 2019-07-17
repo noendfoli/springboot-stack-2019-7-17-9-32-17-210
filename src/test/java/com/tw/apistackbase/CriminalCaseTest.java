@@ -52,5 +52,20 @@ public class CriminalCaseTest {
         });
     }
 
+    @Test
+    public void should_return_criminal_case_when_find_by_id() {
+        //given
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase1);
+        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase2);
+
+        //when//
+        CriminalCase crinial = criminalCaseRepository.findById(Integer.valueOf(1)).get();
+        // /then
+       Assertions.assertEquals("xxCase",crinial.getCaseName());
+    }
+
+
 
 }
