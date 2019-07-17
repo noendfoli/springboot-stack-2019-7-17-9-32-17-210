@@ -66,6 +66,18 @@ public class CriminalCaseTest {
        Assertions.assertEquals("xxCase",crinial.getCaseName());
     }
 
+    @Test
+    public void should_return_order_by_all_case_when_find_crinimal_case_order_by() {
+        //given
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase1);
+        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase2);
+        //when//
+        List<CriminalCase> crinialList = criminalCaseRepository.findByOrderByTimeDesc();
+        // /then
+        Assertions.assertEquals("yyCase",crinialList.get(0).getCaseName());
+    }
 
 
 }
