@@ -41,5 +41,16 @@ public class CriminalCaseTest {
         Assertions.assertEquals(4,caseList.size());
     }
 
+    @Test
+    public void should_can_add_when_property_null() {
+        //given
+        CriminalCase criminalCase1 = new CriminalCase();
+        //when// /then
+        Assertions.assertThrows(Exception.class,()->{
+            criminalCaseRepository.saveAndFlush(criminalCase1);
+
+        });
+    }
+
 
 }
