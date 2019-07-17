@@ -1,6 +1,7 @@
 package com.tw.apistackbase;
 
 import com.tw.apistackbase.entity.CriminalCase;
+import com.tw.apistackbase.entity.Procuratorate;
 import com.tw.apistackbase.entity.SpecificInfo;
 import com.tw.apistackbase.repository.CriminalCaseRepository;
 import com.tw.apistackbase.repository.SpecificInfoRepository;
@@ -124,5 +125,17 @@ public class CriminalCaseTest {
 
         // /then
         Assertions.assertEquals(1,specificInfoList.size());
+    }
+    @Test
+    public void should_return_procuratorate_when_query_criminal_cass() {
+        //given
+        SpecificInfo specificInfo = new SpecificInfo("xx in xx do some thing","xx in xx did'n do somethin");
+        CriminalCase criminalCase = new CriminalCase("xxCase",System.currentTimeMillis(),specificInfo);
+        Procuratorate procuratorate = new Procuratorate("xx检察院");
+        criminalCase.setProcuratorate(procuratorate);
+        criminalCaseRepository.saveAndFlush(criminalCase);
+        //when//
+        // /then
+        Assertions.assertEquals("xx检察院",criminalCaseRepository.findCriminalCaseBycaseId(criminalCase.getCaseId()).getProcuratorate().getProcuratorateName());
     }
 }
