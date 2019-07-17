@@ -12,7 +12,6 @@ public class SpecificInfo {
    private String  objectiveInfo;
     @Column(nullable = false,length = 255)
    private String subjectiveInfo;
-
     public SpecificInfo() {
     }
 

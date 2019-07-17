@@ -1,7 +1,9 @@
 package com.tw.apistackbase;
 
 import com.tw.apistackbase.entity.CriminalCase;
+import com.tw.apistackbase.entity.SpecificInfo;
 import com.tw.apistackbase.repository.CriminalCaseRepository;
+import com.tw.apistackbase.repository.SpecificInfoRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +24,8 @@ import java.util.List;
 public class CriminalCaseTest {
     @Autowired
     private CriminalCaseRepository criminalCaseRepository;
-
+    @Autowired
+    private SpecificInfoRepository specificInfoRepository;
     @Test
     public void should_return_size_when_the_add() {
         //given
@@ -111,23 +114,15 @@ public class CriminalCaseTest {
     }
 
     @Test
-    public void throw_exception_when_name_length_greta_than_255() {
+    public void save_spe_case_when_save_criminal_cass() {
         //given
-        String name = "asldjflsdjaflkjasdlk;k;k;k;k;k;k;fjl;asjdfl;jsdalkjjjjjjjjjjjjjjjjjjjjjjjj" +
-                "jjjjjjjjjjjjjjjjjjjjjwerqwsdejjjjjjjjjsdaaaaaaaaaafasdfdjjjjjjjjjjjjjjjjjjjj" +
-                "sadf;sjdflkjsd" +
-                "jflksjda;fj;sdajkcjsadfffffxnciqhsofoiweprrrrrrrrrrrrrqfdlksjflajsldkjf";
-        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        SpecificInfo specificInfo = new SpecificInfo(1,"xx in xx do some thing","xx in xx did'n do somethin");
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis(),specificInfo);
         criminalCaseRepository.saveAndFlush(criminalCase1);
-        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
-        criminalCaseRepository.saveAndFlush(criminalCase2);
-        CriminalCase criminalCase3 = new CriminalCase(3,"xxCase",System.currentTimeMillis());
-        criminalCaseRepository.saveAndFlush(criminalCase3);
         //when//
-        criminalCaseRepository.deleteById(1);
-        List<CriminalCase> caseList = criminalCaseRepository.findAll();
+        List<SpecificInfo> specificInfoList = specificInfoRepository.findAll();
 
         // /then
-        Assertions.assertEquals(2,caseList.size());
+        Assertions.assertEquals(1,specificInfoList.size());
     }
 }
