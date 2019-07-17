@@ -16,6 +16,12 @@ public class SpecificInfo {
     public SpecificInfo() {
     }
 
+    public SpecificInfo(int speInfoId, String objectiveInfo, String subjectiveInfo) {
+        this.speInfoId = speInfoId;
+        this.objectiveInfo = objectiveInfo;
+        this.subjectiveInfo = subjectiveInfo;
+    }
+
     public SpecificInfo(String objectiveInfo, String subjectiveInfo) {
         this.objectiveInfo = objectiveInfo;
         this.subjectiveInfo = subjectiveInfo;

@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -31,5 +32,17 @@ public class SpecificInfoTest {
         Assertions.assertThrows(Exception.class,()->{
             specificInfoRepository.saveAndFlush(specificInfo);
         });
+    }
+
+    @Test
+    public void should_return_speciific_info_when_findbyid() {
+        //given
+        SpecificInfo specificInfo = new SpecificInfo(1,"xx in xx do some thing","xx in xx did'n do somethin");
+        //when
+        specificInfoRepository.saveAndFlush(specificInfo);
+        SpecificInfo spe = specificInfoRepository.findById(1).get();
+        // /then
+        Assertions.assertEquals("xx in xx do some thing",spe.getObjectiveInfo());
+
     }
 }
