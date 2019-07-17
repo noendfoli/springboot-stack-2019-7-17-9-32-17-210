@@ -93,10 +93,30 @@ public class CriminalCaseTest {
         // /then
         Assertions.assertEquals(crinialList.get(1).getCaseName(),crinialList.get(0).getCaseName());
     }
-
     @Test
     public void should_delete_case_when_delete_crinimal_case_by_id() {
         //given
+        CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase1);
+        CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase2);
+        CriminalCase criminalCase3 = new CriminalCase(3,"xxCase",System.currentTimeMillis());
+        criminalCaseRepository.saveAndFlush(criminalCase3);
+        //when//
+        criminalCaseRepository.deleteById(1);
+        List<CriminalCase> caseList = criminalCaseRepository.findAll();
+
+        // /then
+        Assertions.assertEquals(2,caseList.size());
+    }
+
+    @Test
+    public void throw_exception_when_name_length_greta_than_255() {
+        //given
+        String name = "asldjflsdjaflkjasdlk;k;k;k;k;k;k;fjl;asjdfl;jsdalkjjjjjjjjjjjjjjjjjjjjjjjj" +
+                "jjjjjjjjjjjjjjjjjjjjjwerqwsdejjjjjjjjjsdaaaaaaaaaafasdfdjjjjjjjjjjjjjjjjjjjj" +
+                "sadf;sjdflkjsd" +
+                "jflksjda;fj;sdajkcjsadfffffxnciqhsofoiweprrrrrrrrrrrrrqfdlksjflajsldkjf";
         CriminalCase criminalCase1 = new CriminalCase(1,"xxCase",System.currentTimeMillis());
         criminalCaseRepository.saveAndFlush(criminalCase1);
         CriminalCase criminalCase2= new CriminalCase(2,"yyCase",System.currentTimeMillis());
