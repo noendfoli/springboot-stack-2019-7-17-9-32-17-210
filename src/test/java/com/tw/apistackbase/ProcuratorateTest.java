@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -58,6 +59,18 @@ public class ProcuratorateTest {
         Assertions.assertThrows(Exception.class,()->{
             procuratorateRepository.saveAndFlush(procuratorate2);
         });
+
+    }
+
+    @Test
+    public void should_return_procuratorate_when_find_procuratorate_by_id() {
+        //given
+        Procuratorate procuratorate = new Procuratorate(1,"xx检察院");
+        //when//
+        procuratorateRepository.saveAndFlush(procuratorate);
+        Procuratorate pro = procuratorateRepository.findById(1).get();
+        // /then
+        Assertions.assertEquals("xx检察院",pro.getProcuratorateName());
 
     }
 

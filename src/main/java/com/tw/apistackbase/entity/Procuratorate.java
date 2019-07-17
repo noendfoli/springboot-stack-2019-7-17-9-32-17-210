@@ -16,6 +16,11 @@ public class Procuratorate {
     public Procuratorate() {
     }
 
+    public Procuratorate(int procuratorateId, String procuratorateName) {
+        this.procuratorateId = procuratorateId;
+        this.procuratorateName = procuratorateName;
+    }
+
     public Procuratorate(String procuratorateName) {
         this.procuratorateName = procuratorateName;
     }
